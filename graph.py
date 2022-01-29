@@ -142,37 +142,36 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
-G = nx.DiGraph()
 
-with open("graphInput2.txt", "r") as file:
+G = nx.DiGraph() #uses networkx library to create directed graph
+
+nodeCnt=50 # the number of nodes to randomly generate
+
+#open file and write random nodes to file given the nodeCount specified above
+file1= open("graph.txt", "w", encoding="utf-16" )
+for i in range(nodeCnt):
+    v1=np.random.randint(nodeCnt)
+    while v1==i:
+        v1=np.random.randint(nodeCnt)
+    v2=np.random.randint(nodeCnt)
+    while v2==i:
+        v2=np.random.randint(nodeCnt)
+    file1.writelines([str(i), " ", str(v1), " ", str(v2), "\n"])
+file1.close()
+#open file and write random nodes to file given the nodeCount specified above
+
+
+#opens file graph that contains adjacency list of nodes to create graph
+with open("graph.txt", "r", encoding="utf-16") as file:
     for line in file:
         dig = line.strip().split(" ")
         G.add_node(int(dig[0]))
         for i in range(1,len(dig)):
             if dig[i].isdigit():
                 G.add_edge(int(dig[0]),int(dig[i]))
+#opens file graph that contains adjacency list of nodes to create graph
 
+#draws out the network and visualizes it
 nx.draw_networkx( G ) 
-
-for i in G.nodes:
-    print (i)
-    print(G.edges(i))
-
-print(G.edges(9))
-
-
 plt.show() 
-
-for i in range(199):
-    print(i, " " , np.random.randint(199)," " ,np.random.randint(199) )
-
-arr = np.random.randint(200, size=(200, 2))
-#print(arr)
-
-# for x in range(len(arr)):
-#     for y in range(len(arr[x])):
-#         for k in range(3):
-#             print(arr[x][y], end= " ")
-#     print("\n")
-
-
+#draws out the network and visualizes it
