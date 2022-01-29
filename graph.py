@@ -1,4 +1,3 @@
-# #class of people that will be picked up
 # class Passenger:
 #     def __init__(self, pickUp, dropOff):
 #         self.pickUp = pickUp
