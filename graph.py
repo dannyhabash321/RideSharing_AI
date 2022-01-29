@@ -140,12 +140,13 @@
 #visualize through adjacency list
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 
-G = nx.Graph()
+G = nx.DiGraph()
 
 with open("graphInput2.txt", "r") as file:
     for line in file:
-        dig = line.strip().split(' ')
+        dig = line.strip().split(" ")
         G.add_node(int(dig[0]))
         for i in range(1,len(dig)):
             if dig[i].isdigit():
@@ -158,6 +159,20 @@ for i in G.nodes:
     print(G.edges(i))
 
 print(G.edges(9))
+
+
 plt.show() 
+
+for i in range(199):
+    print(i, " " , np.random.randint(199)," " ,np.random.randint(199) )
+
+arr = np.random.randint(200, size=(200, 2))
+#print(arr)
+
+# for x in range(len(arr)):
+#     for y in range(len(arr[x])):
+#         for k in range(3):
+#             print(arr[x][y], end= " ")
+#     print("\n")
 
 
