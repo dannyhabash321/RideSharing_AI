@@ -171,6 +171,11 @@ with open("graph.txt", "r", encoding="utf-16") as file:
                 G.add_edge(int(dig[0]),int(dig[i]))
 #opens file graph that contains adjacency list of nodes to create graph
 
+#how to access neighbors of an element, delete this later
+listt =list(G.neighbors(1))
+print(listt)
+#how to access neighbors of an element, delete this later
+
 #draws out the network and visualizes it
 nx.draw_networkx( G ) 
 plt.show() 
