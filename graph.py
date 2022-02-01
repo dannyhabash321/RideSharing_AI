@@ -1,14 +1,143 @@
-# class Passenger:
-#     def __init__(self, pickUp, dropOff):
-#         self.pickUp = pickUp
-#         self.dropOff = dropOff
+#visualize through adjacency list
+import networkx as nx
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-# class vehicle:
-#     def __init__(self, path, currentNode, people):
-#         self.path = path
-#         self.currentNode= currentNode
-#         self.people= [None]*5
+class Passenger:
+    def __init__(self, passID, pickUp, dropOff):
+        self.passID = passID
+        self.pickUp = pickUp
+        self.dropOff = dropOff
+
+
+class Vehicle:
+    def __init__(self, vehicleID, path, currentNode, people):
+        self.vehicleID = vehicleID
+        self.path = path
+        self.currentNode = currentNode
+        self.people = people
+
+
+
+
+def assign(passenger, vehicles):
+    shortestPath = nx.shortest_path(G, vehicles[0].currentNode,passenger.pickUp)
+    assignedVehicle = -1
+    for vehicle in vehicles:
+        path = nx.shortest_path(G, vehicle.currentNode, passenger.pickUp)
+        if(len(shortestPath) >=  len(path) and len(vehicle.people) < 5):
+            shortestPath = path
+            assignedVehicle = vehicle.vehicleID
+            vehicle.people.append(passenger.passID)
+    # print(shortestPath, " ", assignedVehicle)
+
+    for vehicle in vehicles:
+        if vehicle.vehicleID == assignedVehicle:
+            vehicle.path = shortestPath
+
+    eta = 6*(len(shortestPath)-1)/60
+    print("Vehicle", assignedVehicle, "assigned to", passenger.passID,". ETA:", eta, "minutes.", "Path:", vehicles[assignedVehicle].path)
+
+
+
+
+G = nx.Graph() #uses networkx library to create directed graph
+
+nodeCount = 50 # the number of nodes to randomly generate
+passengers = []
+passCount = 10
+vehicleCount = 2
+vehicles = []
+
+
+#open file and write random nodes to file given the nodeCount specified above
+file1= open("graph.txt", "w", encoding="utf-16" )
+for i in range(nodeCount):
+    v1=np.random.randint(nodeCount)
+    while v1==i:
+        v1=np.random.randint(nodeCount)
+    v2=np.random.randint(nodeCount)
+    while v2==i:
+        v2=np.random.randint(nodeCount)
+    file1.writelines([str(i), " ", str(v1), " ", str(v2), "\n"])
+file1.close()
+#open file and write random nodes to file given the nodeCount specified above
+
+
+#opens file graph that contains adjacency list of nodes to create graph
+with open("graph.txt", "r", encoding="utf-16") as file:
+    for line in file:
+        dig = line.strip().split(" ")
+        G.add_node(int(dig[0]))
+        for i in range(1,len(dig)):
+            if dig[i].isdigit():
+                G.add_edge(int(dig[0]),int(dig[i]))
+#opens file graph that contains adjacency list of nodes to create graph
+
+for n in range(0, vehicleCount):
+    vehicle = Vehicle(n, [], 0 , [])
+    vehicles.append(vehicle)
+
+for n in range(0, passCount):
+    pickUp = np.random.randint(nodeCount)
+    dropOff = np.random.randint(nodeCount)
+    passID=n
+    while pickUp==dropOff:
+        dropOff = np.random.randint(nodeCount)
+    print("Passenger ", n , " spawned at ", pickUp, " to be dropped off at ", dropOff)
+    passenger=Passenger(passID, pickUp, dropOff)
+    passengers.append(passenger)
+    assign(passenger, vehicles)
+    
+
+
+#  passengers.remove((passID == 0))
+
+# for n in passengers:
+#     print("Passenger ", n.passID, "info: ", n.pickUp, " drop: ", n.dropOff)
+#     if n.passID == 3:
+#         passengers.remove(n)
+# print("After")
+# for n in passengers:
+#     print("Passenger ", n.passID, "info: ", n.pickUp, " drop: ", n.dropOff)
+
+
+
+    
+
+
+
+
+
+# for n in vehicles:
+#     print(n.vehicleID, " ", n.path, " ", n.currentNode, " ", n.people)
+
+
+#draws out the network and visualizes it
+# nx.draw_networkx( G ) 
+# plt.show() 
+#draws out the network and visualizes it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#vehicles
 
 # class Node:
 #     def __init__(self, people, vehicles, edges):
@@ -133,50 +262,3 @@
 
 
 # print(G)
-
-
-
-
-#visualize through adjacency list
-import networkx as nx
-import matplotlib.pyplot as plt
-import numpy as np
-
-
-G = nx.DiGraph() #uses networkx library to create directed graph
-
-nodeCnt=50 # the number of nodes to randomly generate
-
-#open file and write random nodes to file given the nodeCount specified above
-file1= open("graph.txt", "w", encoding="utf-16" )
-for i in range(nodeCnt):
-    v1=np.random.randint(nodeCnt)
-    while v1==i:
-        v1=np.random.randint(nodeCnt)
-    v2=np.random.randint(nodeCnt)
-    while v2==i:
-        v2=np.random.randint(nodeCnt)
-    file1.writelines([str(i), " ", str(v1), " ", str(v2), "\n"])
-file1.close()
-#open file and write random nodes to file given the nodeCount specified above
-
-
-#opens file graph that contains adjacency list of nodes to create graph
-with open("graph.txt", "r", encoding="utf-16") as file:
-    for line in file:
-        dig = line.strip().split(" ")
-        G.add_node(int(dig[0]))
-        for i in range(1,len(dig)):
-            if dig[i].isdigit():
-                G.add_edge(int(dig[0]),int(dig[i]))
-#opens file graph that contains adjacency list of nodes to create graph
-
-#how to access neighbors of an element, delete this later
-listt =list(G.neighbors(1))
-print(listt)
-#how to access neighbors of an element, delete this later
-
-#draws out the network and visualizes it
-nx.draw_networkx( G ) 
-plt.show() 
-#draws out the network and visualizes it
