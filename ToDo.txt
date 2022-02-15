@@ -1,14 +1,13 @@
 To fix:
-•	Time
+•	Time(danny)
 •	Output
-•	Car label 1-n
+•	Car label 1-n(blake)
 Assumptions:
 •	Cars start at the hub which is node 0
 •	Cars stay at last node and don’t return to hub after simulation is completed
 To do:
-•	Pseudocode of assigning vehicle to pick up customers
-•	Pseudocode of plan to drop off customers
+•	Pseudocode of assigning vehicle to pick up customers(danny)
+•	Pseudocode of plan to drop off customers(blake)
 •	Simulations/after code is fixed
-•	Documentation 1-2 pages of what it does
+•	Documentation 1-2 pages of what it does (danny:assign/pickup)
 •	Jupyter notebook
-
