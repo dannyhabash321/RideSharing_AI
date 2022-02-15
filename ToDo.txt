@@ -1,1 +1,14 @@
+To fix:
+•	Time
+•	Output
+•	Car label 1-n
+Assumptions:
+•	Cars start at the hub which is node 0
+•	Cars stay at last node and don’t return to hub after simulation is completed
+To do:
+•	Pseudocode of assigning vehicle to pick up customers
+•	Pseudocode of plan to drop off customers
+•	Simulations/after code is fixed
+•	Documentation 1-2 pages of what it does
+•	Jupyter notebook
 
