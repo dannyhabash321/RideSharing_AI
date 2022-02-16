@@ -126,7 +126,7 @@ passCount = 1200 #number of total passenegers that will submit a request
 vehicleCount = 30 #number of vehicles that spawn at node 0(The hub)
 passengers = [] #list to hold passenger objects
 vehicles = [] #list for vehicles 
-connectivity=2 #connectivity average per node
+connectivity=4 #connectivity average per node
 
 
 
@@ -153,6 +153,9 @@ for n in range(0, vehicleCount):
 
 #generate pickup and dropoff location for each passenger, and outputs where they spawned
 for n in range(0, passCount):
+    if n%150==0:
+        print("\nHour:", (n//150)+1, file=f)
+    
     pickUp = np.random.randint(nodeCount)
     dropOff = np.random.randint(nodeCount)
     passID=n
@@ -188,9 +191,10 @@ for vehicle in vehicles:
 
 
 
-table.add_row(["Total", passCount, totalNodes, totalTime]) 
+table.add_row(["Total", passCount, totalNodes, totalTime//1]) 
 print("REPORTS".center(70," "), file=f)
 print(table, file=f)
+print("Average Nodes Traveled:", totalNodes//vehicleCount, file=f)
 
 f.close()
 
@@ -198,7 +202,6 @@ f.close()
 
 
 #draws out the network and visualizes it
-# nx.draw_networkx(G) 
-# plt.show() 
+nx.draw_networkx(G) 
+plt.show() 
 #draws out the network and visualizes it
-

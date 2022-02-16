@@ -1,0 +1,35 @@
+This psuedocode represents the algorithm needed to 
+plan the route for dropping off passengers in each vehicle.
+This algorithm is called after the closest vehicle has been assigned to the passenger
+This algorithm prioritizes pickups over dropoffs and will not dropoff any passenegers unless they are on the path to a pickup
+This algorithm calculates shortest path to pickUp then after all pickups are done, shortest path to dropoffs
+
+pseudo Code:
+
+
+function pathPriority ( vehicle ){
+    
+    initialize shortestPath to 200 nodes
+    
+    if there are any pickUps in the vehicle pickUps list:
+        
+        for every pickUp in vehicle's pickUps list:
+        
+            path = shortest path to that pickup
+        
+            if the length of path is less than shortestPath:
+                update shortestPath to path
+
+        set vehicle path to shortestPath
+    
+    if all pickups are done, calculate shortest route
+    
+        for every passengers' dropoff in vehicle.dropOffs:
+            
+            path = shortest path from current node to passengers' dropOff
+            
+            if this passengers' path is shorter than shortestPath:
+                update shortestPath to path
+            
+        set vehicle path to shortestPath
+}
